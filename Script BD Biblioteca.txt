@@ -1,0 +1,97 @@
+create database biblioteca;
+
+
+use biblioteca;
+
+CREATE TABLE bibliotecario (
+codBibliotecario int PRIMARY KEY auto_increment,
+nome varchar(200),
+email varchar (100) unique,
+cpf varchar (20) unique,
+rg varchar (20) unique,
+dataNasc date,
+numero varchar(50),
+cidade varchar(100),
+uf varchar(2),
+cep varchar(20),
+bairro varchar (100),
+logradouro varchar(100),
+rua varchar(100),
+telefone varchar(20)
+);
+
+CREATE TABLE cliente (
+ra int PRIMARY KEY auto_increment,
+telefone varchar(200),
+nome varchar (150),
+dataNasc date,
+email varchar(200) unique,
+turma varchar (150)
+);
+
+CREATE TABLE livro (
+codLivro int PRIMARY KEY auto_increment,
+nomeAutor varchar(200),
+nome varchar(200),
+genero varchar(200),
+editora varchar(200)
+);
+
+
+CREATE TABLE emprestimo_devolucao (
+codEmprestimo int PRIMARY KEY auto_increment,
+data_emprestimo date,
+data_devolucao date,
+ra int,
+codBibliotecario int,
+codLivro int,
+FOREIGN KEY(codLivro) REFERENCES livro (codLivro),
+FOREIGN KEY(codBibliotecario) REFERENCES bibliotecario (codBibliotecario),
+FOREIGN KEY(ra) REFERENCES cliente (ra)
+);
+
+
+INSERT into bibliotecario (nome, email, dataNasc, cidade, uf, telefone, cpf) VALUES
+('Alfredo de Oliveira','alfredooliveira@gmail.com','1988-12-11','Ribeirão Pires','SP','4827-4244','23.384.435-22'),
+('Alicia dos Santos','aliciasantos@gmail.com','1999-09-01','Ribeirão Pires','SP','4827-4394','21.884.135-67'),
+('Carmen Souza Abulquerque','carminha@gmail.com','1963-02-23','Mauá','SP','4972-1244','13.339.475-12');
+
+INSERT into livro (nome, nomeAutor, editora, genero) VALUES
+('Orgulho e Preconceito', 'Jane Austen', 'Nova Fronteira','Romance'),
+('Mulherzinhas', 'Louisa May Alcott', 'Planeta','Drama'),
+('Persuasão', 'Jane Austen', 'Nova Fronteira','Romance'),
+('Batalha na mente', 'Joyce Meyer', 'Bello ','Religioso'),
+('A Seleção', 'Kiera Cass', 'HarperCollins ','Romance'),
+('O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Reynal & Hitchcock ','Conto infantil'),
+('A Escolha', 'Kiera Cass', 'HarperCollins ','Romance'),
+('Para Todos os Garotos que Já Amei', 'Jenny Han', 'Simon & Schuster','Romance'),
+('A Menina que Roubava Livros', 'Markus Zusak', 'Saraiva','Ficção Histórica'),
+('A Rainha Vermelha', 'Victoria Aveyard', 'HarperCollins','Ficção Juvenil');
+
+INSERT into cliente (nome, dataNasc, email, telefone, turma) VALUES
+('Elizabeth Bennet','2005','lizzybennet@gmail.com','4827-1924','2C'),
+('Josephne March','2005','jomarch@gmail.com','4927-1944','2C'),
+('May March','2004','maymarch@gmail.com','4226-1724','1C'),
+('Anne Shirley-Cuthbert','2003','anneshirley@gmail.com','4822-1224','3C'),
+('Diana Barry','2003','dianabarry@gmail.com','4626-1254','2A'),
+('Fitzwilliam Darcy','2005','srdarcy@gmail.com','4223-1274','2C'),
+('Maxon Schreave','2003','maxonschreave@gmail.com','4222-1932','3C'),
+('Gilbert Blythe','2003','gilbertblythe@gmail.com','4722-1822','3C'),
+('Amelia Thermopolis','2004','miathermopolis@gmail.com','4982-1682','1A'),
+('José Carlos Antônio','2003','josecarlos@gmail.com','4752-1362','2A');
+
+INSERT into emprestimo_devolucao (codBibliotecario, codLivro, ra, data_emprestimo, data_devolucao) VALUES
+(1, 2, 2,'2019-05-29', '2019-06-29'),
+(2, 4, 2,'2018-03-22', '2018-04-22'),
+(1, 1, 6,'2020-05-29', '2020-06-29'),
+(2, 10, 10,'2018-04-10', '2018-05-10'),
+(3, 3, 1,'2014-02-18', '2014-03-18'),
+(3, 5, 3,'2019-05-29', '2019-06-29'),
+(2, 8, 5,'2015-10-19', '2015-11-19'),
+(1, 9, 9,'2020-03-04', '2020-04-04'),
+(2, 1, 4,'2017-12-30', '2018-01-30'),
+(1, 7, 7,'2019-08-09', '2019-09-09');
+
+
+
+
